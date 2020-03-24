@@ -16,3 +16,17 @@ bool LocaleStringIdentifier::IsValid()
 		return false;
 	return !_id.empty();
 }
+
+bool operator<(const LocaleStringIdentifier& l, const LocaleStringIdentifier& r)
+{
+	return l._id < r._id;
+}
+
+//template<typename T>
+//struct IdentifierCompare
+//{
+//	bool operator() (const LocaleStringIdentifier<T>& a, const LocaleStringIdentifier<T>& b)
+//	{
+//		return a._id < b._id;
+//	}
+//};

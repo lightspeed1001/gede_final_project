@@ -13,11 +13,11 @@ public:
 
 
 	// Getters
-	LocaleStringIdentifier GetID();
-	Locale GetLocale();
-	std::string GetValue();
+	const LocaleStringIdentifier GetID();
+	const Locale GetLocale();
+	const std::string GetValue();
 
-	bool IsValid();
+	const bool IsValid();
 
 	// Setters
 	void SetValue(std::string str);

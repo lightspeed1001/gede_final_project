@@ -15,22 +15,22 @@ LocalizedString::LocalizedString(LocaleStringIdentifier id, Locale locale, std::
 
 }
 
-LocaleStringIdentifier LocalizedString::GetID()
+const LocaleStringIdentifier LocalizedString::GetID()
 {
 	return _id;
 }
 
-Locale LocalizedString::GetLocale()
+const Locale LocalizedString::GetLocale()
 {
 	return _locale;
 }
 
-std::string LocalizedString::GetValue()
+const std::string LocalizedString::GetValue()
 {
 	return _value;
 }
 
-bool LocalizedString::IsValid()
+const bool LocalizedString::IsValid()
 {
 	return _id.IsValid();
 }

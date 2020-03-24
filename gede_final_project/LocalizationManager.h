@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include "LocalizedString.h"
+#include <set>
 typedef std::map<LocaleStringIdentifier, LocalizedString> ID2String;
 typedef std::tuple<Locale, ID2String> LocaleTuple;
 
@@ -21,6 +22,7 @@ public:
 	LocalizedString GetStringForID(LocaleStringIdentifier id);
 
 	// Returns true if it succeeded, false if not
+	// Currently just returns true, because it can't really fail.
 	bool AddString(LocaleStringIdentifier id, Locale l, std::string str);
 	bool AddString(LocalizedString lstr);
 	
@@ -35,13 +37,19 @@ public:
 	bool LoadStringsFromFile(std::string path);
 	bool SaveStringsToFile(std::string path);
 
+	bool IsEverythingOK();
+    std::set<Locale> GetAllLocales();
+	std::set<LocaleStringIdentifier> GetAllIDs();
+
+	std::set<std::tuple<LocaleStringIdentifier, Locale>> GetAllMissingStrings();
+
 	// Getters
 	Locale GetLocale();
 
 	// Setters
 
 private:
-	ID2String GetMapForLocale(Locale l);
+	ID2String* GetMapForLocale(Locale l);
 	void MakeSureDestinationExists(std::string path);
 
 	Locale _locale;

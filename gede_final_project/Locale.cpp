@@ -14,3 +14,8 @@ std::string Locale::GetName()
 {
 	return _name;
 }
+
+bool operator<(const Locale& l, const Locale& r)
+{
+	return l._name < r._name;
+}
