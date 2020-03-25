@@ -2,28 +2,53 @@
 
 LocalizationManager::LocalizationManager()
 {
+	_locale = Locale("N/A");
+}
 
+LocalizationManager::LocalizationManager(Locale l)
+{
+	_locale = l;
 }
 
 LocalizationManager::LocalizationManager(std::string path)
 {
+	_locale = Locale("N/A");
 
+	// TODO
+	// Load strings from given CSV file
 }
 
 LocalizationManager::LocalizationManager(std::string path, Locale l)
 {
+	// TODO
+	// Load strings from given CSV file and set the locale
 
+	_locale = l;
+}
+
+LocalizedString LocalizationManager::GetStringForID(std::string id)
+{
+	return GetStringForID(LocaleStringIdentifier(id));
 }
 
 LocalizedString LocalizationManager::GetStringForID(LocaleStringIdentifier id)
 {
-	return LocalizedString();
+	for (LocaleTuple& lt : _localizedStrings)
+	{
+		auto& [locale, idStrMap] = lt;
+		if (locale.GetName() == _locale.GetName())
+		{
+			auto iterator = idStrMap.find(id);
+			if (iterator != idStrMap.end())
+				return idStrMap[id];
+		}
+	}
+	return LocalizedString("N/A", "N/A", "STRING NOT FOUND");
 }
 
 bool LocalizationManager::AddString(LocaleStringIdentifier id, Locale l, std::string str)
 {
-	
-	return false;
+	return AddString(LocalizedString(id, l, str));
 }
 
 bool LocalizationManager::AddString(LocalizedString lstr)
@@ -54,6 +79,11 @@ bool LocalizationManager::ChangeLocale(Locale l)
 	return true;
 }
 
+bool LocalizationManager::ChangeLocale(std::string l)
+{
+	return ChangeLocale(Locale(l));
+}
+
 bool LocalizationManager::DoesLocaleExist(Locale l)
 {
 	for (LocaleTuple& lt : _localizedStrings)
@@ -79,16 +109,23 @@ bool LocalizationManager::DoesStringIDExist(LocaleStringIdentifier id)
 
 bool LocalizationManager::LoadStringsFromFile(std::string path)
 {
+	// TODO
+	// Load strings from the given file
+	// Format is: id, somelocale1, somelocale2,..., somelocaleN
 	return false;
 }
 
 bool LocalizationManager::SaveStringsToFile(std::string path)
 {
+	// TODO
+	// Write all the strings to the file in the correct format
 	return false;
 }
 
 bool LocalizationManager::IsEverythingOK()
 {
+	// TODO
+	// Verify that all strings exist in all locales
 	return false;
 }
 
@@ -120,6 +157,8 @@ std::set<LocaleStringIdentifier> LocalizationManager::GetAllIDs()
 
 std::set<std::tuple<LocaleStringIdentifier, Locale>> LocalizationManager::GetAllMissingStrings()
 {
+	// TODO
+	// Return a list/set of tuples that contain all of the missing string IDs and in what locale
 	return std::set<std::tuple<LocaleStringIdentifier, Locale>>();
 }
 
@@ -141,4 +180,6 @@ ID2String* LocalizationManager::GetMapForLocale(Locale l)
 
 void LocalizationManager::MakeSureDestinationExists(std::string path)
 {
+	// TODO
+	// Helper function for when writing to file
 }
